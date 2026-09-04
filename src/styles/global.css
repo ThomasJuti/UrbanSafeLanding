@@ -109,6 +109,12 @@ button {
   }
 }
 
+@keyframes flow {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
