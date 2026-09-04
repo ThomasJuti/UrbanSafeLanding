@@ -1,0 +1,196 @@
+---
+const stats = [
+  {
+    dotColor: "var(--color-danger)",
+    dotBg: "rgba(239,68,68,.2)",
+    target: 85,
+    suffix: "%",
+    title: "Se ha sentido en riesgo",
+    body: "de los repartidores encuestados vivió una situación de inseguridad en plena entrega.",
+    variant: "dark",
+  },
+  {
+    dotColor: "var(--color-warning)",
+    dotBg: "rgba(251,191,36,.2)",
+    target: 14,
+    suffix: "/20",
+    title: "Localidades sin datos",
+    body: "no tienen reportes públicos actualizados de hurto a domiciliarios.",
+    variant: "dark",
+  },
+  {
+    dotColor: "#FFFFFF",
+    dotBg: "rgba(15,23,42,.25)",
+    target: 24,
+    suffix: "/7",
+    title: "Monitoreo continuo",
+    body: "de vigilancia colaborativa: la comunidad reporta y el mapa cambia al instante.",
+    variant: "accent",
+  },
+];
+---
+
+<section id="reto" class="challenge">
+  <div class="container">
+    <div class="panel">
+      <div class="intro">
+        <h2 class="light">El reto de hacer entregas en Bogotá</h2>
+        <p class="light-body">
+          Hoy el repartidor decide a ciegas: nadie le dice qué calle evitar a las 9 p.m. ni dónde se concentran los
+          hurtos de moto. La información vive suelta en grupos de WhatsApp, llega tarde y nadie la verifica.
+        </p>
+      </div>
+
+      <div class="stat-grid">
+        {
+          stats.map((stat) => (
+            <div class={`stat-card ${stat.variant === "accent" ? "stat-card-accent" : ""}`}>
+              <span class="stat-icon" style={`background:${stat.dotBg}`}>
+                <span class="stat-icon-dot" style={`background:${stat.dotColor}`} />
+              </span>
+              <span class="stat-value" data-counter data-target={stat.target} data-suffix={stat.suffix}>
+                {stat.target}{stat.suffix}
+              </span>
+              <strong class="stat-title">{stat.title}</strong>
+              <span class="stat-body">{stat.body}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .challenge {
+    padding: 20px;
+  }
+
+  .panel {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    background: var(--color-ink);
+    color: var(--color-bg);
+    border-radius: 36px;
+    padding: clamp(30px, 6vw, 54px) clamp(22px, 5vw, 46px);
+    display: grid;
+    gap: 30px;
+  }
+
+  .intro {
+    display: grid;
+    gap: 16px;
+    max-width: 58ch;
+  }
+
+  h2 {
+    font-weight: 800;
+    font-size: clamp(28px, 6.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -1.4px;
+    margin: 0;
+  }
+
+  .light-body {
+    margin: 0;
+    font-size: clamp(16.5px, 4.2vw, 19px);
+    line-height: 1.65;
+    color: #cbd5e1;
+  }
+
+  .stat-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .stat-card {
+    background: rgba(248, 250, 252, 0.06);
+    border-radius: 26px;
+    padding: 26px 24px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+
+  .stat-card-accent {
+    background: var(--color-accent-dark);
+    color: #fff;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+
+  .stat-icon-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(42px, 11vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -2.4px;
+  }
+
+  .stat-title {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .stat-body {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--color-subtle);
+  }
+
+  .stat-card-accent .stat-body {
+    color: #fff;
+  }
+</style>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>("[data-counter]");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function animateCounters(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      const target = Number(el.dataset.target ?? "0");
+      const suffix = el.dataset.suffix ?? "";
+      observer.unobserve(el);
+
+      if (prefersReducedMotion) {
+        el.textContent = target + suffix;
+        return;
+      }
+
+      const duration = 1400;
+
+      el.textContent = "0" + suffix;
+      const start = performance.now();
+
+      const step = (now: number) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+    });
+  }
+
+  if (counters.length) {
+    const observer = new IntersectionObserver(animateCounters, { threshold: 0.4 });
+    counters.forEach((counter) => observer.observe(counter));
+  }
+</script>
