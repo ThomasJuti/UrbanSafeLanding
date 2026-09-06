@@ -27,8 +27,10 @@ const localidades = [
   <div class="container">
     <div class="panel">
       <div class="intro">
-        <h2>Sé de los primeros en probar UrbanSafe</h2>
-        <p>Déjanos tus datos y te escribimos cuando abramos el piloto en tu localidad.</p>
+        <h2 class="reveal">Sé de los primeros en probar UrbanSafe</h2>
+        <p class="reveal" style="--reveal-delay: 90ms">
+          Déjanos tus datos y te escribimos cuando abramos el piloto en tu localidad.
+        </p>
       </div>
 
       <div class="success-card" id="success-card" role="status" aria-live="polite" hidden>
@@ -60,10 +62,15 @@ const localidades = [
 
         <label>
           <span>Localidad en Bogotá</span>
-          <select name="zone">
-            <option value="">Selecciona tu localidad</option>
-            {localidades.map((zona) => <option value={zona}>{zona}</option>)}
-          </select>
+          <span class="select-wrap">
+            <select name="zone">
+              <option value="">Selecciona tu localidad</option>
+              {localidades.map((zona) => <option value={zona}>{zona}</option>)}
+            </select>
+            <svg class="select-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
         </label>
 
         <p class="error" id="form-error" role="alert" aria-live="assertive" hidden></p>
@@ -165,6 +172,13 @@ const localidades = [
     font-size: 15px;
     cursor: pointer;
     min-height: 44px;
+    padding-inline: 14px;
+    border-radius: 999px;
+  }
+
+  .success-card button:hover {
+    background: rgba(194, 65, 12, 0.08);
+    color: var(--color-accent);
   }
 
   .form {
@@ -205,8 +219,28 @@ const localidades = [
     color: var(--color-ink);
   }
 
+  .select-wrap {
+    position: relative;
+    display: block;
+  }
+
   .form select {
     appearance: none;
+    padding-right: 52px;
+  }
+
+  .select-chevron {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted-2);
+    pointer-events: none;
+  }
+
+  .form input:hover,
+  .form select:hover {
+    border-color: #cbd5e1;
   }
 
   .form input:focus,
@@ -214,6 +248,13 @@ const localidades = [
     border-color: var(--color-accent);
     background: #fff;
     outline: 3px solid rgba(234, 88, 12, 0.2);
+    outline-offset: 0;
+  }
+
+  .form input[aria-invalid="true"],
+  .form select[aria-invalid="true"] {
+    border-color: var(--color-danger);
+    background: #fff;
   }
 
   .error {
@@ -237,11 +278,17 @@ const localidades = [
     border: none;
     border-radius: 999px;
     cursor: pointer;
-    box-shadow: 0 14px 30px rgba(234, 88, 12, 0.36);
+    box-shadow: var(--shadow-accent);
   }
 
   .submit:hover {
-    background: var(--color-accent-dark);
+    background: #9a3412;
+    box-shadow: var(--shadow-accent-lg);
+  }
+
+  .submit:active {
+    transform: translateY(2px) scale(0.99);
+    box-shadow: var(--shadow-accent);
   }
 
   .disclaimer {
@@ -259,17 +306,34 @@ const localidades = [
   const successMessage = document.getElementById("success-message");
   const resetButton = document.getElementById("reset-form");
 
-  function showError(message: string) {
+  type Field = HTMLInputElement | HTMLSelectElement;
+
+  function fieldNamed(name: string) {
+    return form?.querySelector<Field>(`[name="${name}"]`) ?? null;
+  }
+
+  function showError(message: string, fieldName: string) {
+    const field = fieldNamed(fieldName);
+    if (field) {
+      field.setAttribute("aria-invalid", "true");
+      field.focus();
+    }
     if (!errorEl) return;
     errorEl.textContent = message;
     errorEl.hidden = false;
   }
 
   function clearError() {
+    form?.querySelectorAll<Field>("[aria-invalid]").forEach((field) => {
+      field.removeAttribute("aria-invalid");
+    });
     if (!errorEl) return;
     errorEl.hidden = true;
     errorEl.textContent = "";
   }
+
+  // Clear the error as soon as the person starts correcting it.
+  form?.addEventListener("input", clearError);
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -280,9 +344,10 @@ const localidades = [
     const email = String(data.get("email") ?? "").trim();
     const zone = String(data.get("zone") ?? "").trim();
 
-    if (!name) return showError("Escribe tu nombre para continuar.");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError("Revisa tu correo: parece incompleto.");
-    if (!zone) return showError("Selecciona la localidad donde haces entregas.");
+    if (!name) return showError("Escribe tu nombre para continuar.", "name");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      return showError("Revisa tu correo: parece incompleto.", "email");
+    if (!zone) return showError("Selecciona la localidad donde haces entregas.", "zone");
 
     if (successMessage) {
       successMessage.textContent = `Te avisamos en cuanto el piloto llegue a ${zone}.`;

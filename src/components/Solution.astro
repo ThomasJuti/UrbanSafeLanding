@@ -33,14 +33,14 @@ const stages = [
 <section id="solucion" class="solution">
   <div class="container">
     <div class="intro">
-      <h2>Tres herramientas para llegar y volver bien</h2>
+      <h2 class="reveal">Tres herramientas para llegar y volver bien</h2>
     </div>
 
     <div class="journey">
       <div class="journey-line" aria-hidden="true"></div>
       {
-        stages.map((stage) => (
-          <div class="stage">
+        stages.map((stage, index) => (
+          <div class="stage reveal" style={`--reveal-delay: ${index * 110}ms`}>
             <span class="stage-marker" style={`background:${stage.iconBg}; color:${stage.iconColor}`} set:html={stage.icon} />
             <div class="stage-body">
               <span class="stage-moment">{stage.moment}</span>

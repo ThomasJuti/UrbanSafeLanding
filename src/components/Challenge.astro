@@ -6,8 +6,8 @@
     <div class="panel">
       <div class="split">
         <div class="intro">
-          <h2 class="light">El reto de hacer entregas en Bogotá</h2>
-          <p class="light-body">
+          <h2 class="light reveal">El reto de hacer entregas en Bogotá</h2>
+          <p class="light-body reveal" style="--reveal-delay: 90ms">
             Hoy el repartidor decide a ciegas: nadie le dice qué calle evitar a las 9 p.m. ni dónde se concentran los
             hurtos de moto. La información vive suelta en grupos de WhatsApp, llega tarde y nadie la verifica.
           </p>
@@ -15,7 +15,7 @@
         </div>
 
         <div class="stats">
-          <div class="stat-feature stat-primary">
+          <div class="stat-feature stat-primary reveal" style="--reveal-delay: 120ms">
             <span class="stat-glow stat-glow-danger" aria-hidden="true"></span>
             <span class="stat-figure">85%</span>
             <p class="stat-caption">
@@ -23,7 +23,7 @@
             </p>
           </div>
 
-          <div class="stat-feature stat-secondary">
+          <div class="stat-feature stat-secondary reveal" style="--reveal-delay: 220ms">
             <span class="stat-glow stat-glow-warning" aria-hidden="true"></span>
             <span class="stat-figure stat-figure-sm">14/20</span>
             <p class="stat-caption">
@@ -121,6 +121,7 @@
     line-height: 0.95;
     letter-spacing: -2.5px;
     font-size: clamp(48px, 7.5vw, 84px);
+    font-variant-numeric: tabular-nums;
   }
 
   .stat-figure-sm {
