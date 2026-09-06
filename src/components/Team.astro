@@ -10,8 +10,8 @@ const team = [
   <div class="container">
     <div class="panel">
       <div class="intro">
-        <h2>Equipo creador</h2>
-        <p>
+        <h2 class="reveal">Equipo creador</h2>
+        <p class="reveal" style="--reveal-delay: 90ms">
           Somos estudiantes bogotanos de diseño y desarrollo. El proyecto nació escuchando a repartidores del sur
           contar cómo cambian de ruta por pura intuición. UrbanSafe es nuestra respuesta: datos abiertos, reportes de
           la comunidad y una interfaz que se entiende en tres segundos sobre una moto.
@@ -20,8 +20,8 @@ const team = [
 
       <ul class="credits">
         {
-          team.map((member) => (
-            <li class="credit">
+          team.map((member, index) => (
+            <li class="credit reveal" style={`--reveal-delay: ${index * 100}ms`}>
               <strong>{member.name}</strong>
               <span class="role">{member.role}</span>
             </li>

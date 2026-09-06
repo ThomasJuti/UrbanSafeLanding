@@ -4,13 +4,13 @@
 <section id="top" class="hero">
   <div class="container grid">
     <div class="copy">
-      <h1>Rutas y zonas de entrega <span class="accent">seguras</span> en tiempo real para domiciliarios en Bogotá.</h1>
+      <h1 class="reveal">Rutas y zonas de entrega <span class="accent">seguras</span> en tiempo real para domiciliarios en Bogotá.</h1>
 
-      <p class="lede">
+      <p class="lede reveal" style="--reveal-delay: 90ms">
         Mira el riesgo de cada barrio antes de aceptar el pedido, recibe alertas antes de entrar a una zona caliente y llega con una ruta alterna lista.
       </p>
 
-      <a href="#registro" class="primary-cta">
+      <a href="/#registro" class="primary-cta reveal" style="--reveal-delay: 180ms">
         Registrarme gratis
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
@@ -165,13 +165,26 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    box-shadow: 0 18px 38px rgba(234, 88, 12, 0.4);
+    box-shadow: var(--shadow-accent-lg);
+  }
+
+  .primary-cta svg {
+    transition: transform var(--transition);
   }
 
   .primary-cta:hover {
     background: var(--color-accent-dark);
     color: #fff;
-    box-shadow: 0 22px 46px rgba(234, 88, 12, 0.5);
+    box-shadow: 0 22px 46px rgba(194, 65, 12, 0.5);
+  }
+
+  .primary-cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  .primary-cta:active {
+    transform: translateY(2px) scale(0.99);
+    box-shadow: var(--shadow-accent);
   }
 
   .map-wrap {
@@ -195,7 +208,7 @@
     position: relative;
     aspect-ratio: 380 / 400;
     border-radius: 32px;
-    background: #16233b;
+    background: radial-gradient(120% 90% at 30% 12%, #1d2d4a 0%, #16233b 55%, #101a2d 100%);
     box-shadow: 0 30px 60px rgba(15, 23, 42, 0.3);
     overflow: hidden;
   }
