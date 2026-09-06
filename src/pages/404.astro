@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Ruta no encontrada — UrbanSafe"
+  description="Esta página no existe. Vuelve al inicio de UrbanSafe para ver el mapa de riesgo y registrarte al piloto en Bogotá."
+>
+  <div class="page">
+    <Header />
+    <main id="contenido" class="not-found">
+      <div class="container">
+        <span class="code">404</span>
+        <h1>Esta ruta no existe</h1>
+        <p>
+          La dirección que buscas no está en el mapa. Puede que el enlace esté viejo o mal escrito.
+        </p>
+        <div class="actions">
+          <a href="/" class="primary">Volver al inicio</a>
+          <a href="/#registro" class="secondary">Ir al registro</a>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .not-found {
+    flex: 1;
+    display: grid;
+    align-items: center;
+    padding: clamp(60px, 12vw, 120px) 0;
+  }
+
+  .code {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(64px, 16vw, 132px);
+    line-height: 0.9;
+    letter-spacing: -5px;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1 {
+    margin: 18px 0 0;
+    font-weight: 800;
+    font-size: clamp(28px, 6.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -1.4px;
+  }
+
+  p {
+    margin: 14px 0 0;
+    max-width: 46ch;
+    font-size: clamp(16.5px, 4.2vw, 19px);
+    line-height: 1.65;
+    color: var(--color-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .primary,
+  .secondary {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    min-height: 58px;
+    padding: 0 28px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .primary {
+    background: var(--color-accent);
+    color: #fff;
+    box-shadow: var(--shadow-accent);
+  }
+
+  .primary:hover {
+    background: var(--color-accent-dark);
+    color: #fff;
+    box-shadow: var(--shadow-accent-lg);
+  }
+
+  .primary:active {
+    transform: translateY(2px) scale(0.99);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .secondary {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .secondary:hover {
+    background: var(--color-surface-alt);
+    color: var(--color-ink);
+  }
+
+  .secondary:active {
+    transform: translateY(2px) scale(0.99);
+  }
+</style>
