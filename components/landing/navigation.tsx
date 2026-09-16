@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -43,7 +44,15 @@ export function Navigation() {
           }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-2.5 group">
+            <Image
+              src="/logo.png"
+              alt="UrbanSafe"
+              width={36}
+              height={36}
+              className={`rounded-lg transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-9 h-9"}`}
+              priority
+            />
             <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>UrbanSafe</span>
           </a>
 

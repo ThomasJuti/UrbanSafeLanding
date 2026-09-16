@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { ArrowUpRight, Instagram, Twitter, Linkedin } from "lucide-react";
 import { AnimatedWave } from "./animated-wave";
 import { VisitorCounter } from "./visitor-counter";
@@ -51,7 +52,8 @@ export function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-2 mb-6">
+              <a href="#" className="inline-flex items-center gap-2.5 mb-6">
+                <Image src="/logo.png" alt="UrbanSafe" width={36} height={36} className="w-9 h-9 rounded-lg" />
                 <span className="text-2xl font-display">UrbanSafe</span>
               </a>
 
