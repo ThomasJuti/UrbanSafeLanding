@@ -4,7 +4,6 @@ import { useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Instagram, Twitter, Linkedin } from "lucide-react";
 import { AnimatedWave } from "./animated-wave";
-import { VisitorCounter } from "./visitor-counter";
 import { useParallax } from "@/hooks/use-parallax";
 
 const footerLinks = {
@@ -100,12 +99,10 @@ export function FooterSection() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-8 border-t border-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="py-8 border-t border-foreground/10">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} UrbanSafe. Todos los derechos reservados.
           </p>
-
-          <VisitorCounter />
         </div>
       </div>
     </footer>
