@@ -12,11 +12,6 @@ const footerLinks = {
     { name: "Estadísticas", href: "#estadisticas" },
     { name: "Regístrate", href: "#registro" },
   ],
-  "En las noticias": [
-    { name: "El Tiempo — Inseguridad de domiciliarios", href: "#" },
-    { name: "Semana — Riesgos de la última milla", href: "#" },
-    { name: "RCN — Domiciliarios piden protección", href: "#" },
-  ],
   Equipo: [
     { name: "Quiénes somos", href: "#equipo" },
     { name: "Contacto", href: "#registro" },
@@ -48,7 +43,7 @@ export function FooterSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Main Footer */}
         <div className="py-16 lg:py-24">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-12 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
               <a href="#" className="inline-flex items-center gap-2.5 mb-6">
